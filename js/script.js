@@ -1,4 +1,5 @@
-<script>
+console.log("script.js loaded");
+
 function hitungRisiko() {
 
   const C  = parseFloat(document.getElementById("C").value);
@@ -48,4 +49,3 @@ function hitungRisiko() {
 
   hasil.innerHTML = output;
 }
-</script>
