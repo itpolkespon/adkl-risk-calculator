@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Health Risk Intake Calculator (ADKL)</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Health Risk Intake Calculator</h1>
+    <p class="subtitle">Analisis Risiko Kesehatan Lingkungan (ADKL)</p>
+
+    <label>Jenis Risiko</label>
+    <select id="jenis">
+        <option value="non">Non-Karsinogen</option>
+        <option value="kar">Karsinogen</option>
+    </select>
+
+    <label>Konsentrasi (C)</label>
+    <input type="number" id="C" step="any">
+
+    <label>Laju Asupan (R)</label>
+    <input type="number" id="R" step="any">
+
+    <label>Waktu Pajanan (tE) jam/hari</label>
+    <input type="number" id="tE">
+
+    <label>Frekuensi Pajanan (fE) hari/tahun</label>
+    <input type="number" id="fE">
+
+    <label>Durasi Pajanan (Dt) tahun</label>
+    <input type="number" id="Dt">
+
+    <label>Berat Badan (Wb) kg</label>
+    <input type="number" id="Wb">
+
+    <label>Reference Dose (RfD)</label>
+    <input type="number" id="RfD" step="any">
+
+    <button onclick="hitung()">Hitung Risiko</button>
+
+    <div class="result" id="hasil"></div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
