@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Kalkulator Intake ADKL</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      padding: 40px;
+    }
+    .container {
+      max-width: 600px;
+      background: #ffffff;
+      padding: 25px;
+      margin: auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    label {
+      font-weight: bold;
+      margin-top: 15px;
+      display: block;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+    }
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      background: #007bff;
+      color: white;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      background: #ecf0f1;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Kalkulator Intake ADKL</h1>
+
+  <label>C (Konsentrasi)</label>
+  <input type="number" id="C">
+
+  <label>R (Laju Asupan)</label>
+  <input type="number" id="R">
+
+  <label>tE (Waktu Pajanan)</label>
+  <input type="number" id="tE">
+
+  <label>fE (Frekuensi Pajanan)</label>
+  <input type="number" id="fE">
+
+  <label>Dt (Durasi Pajanan)</label>
+  <input type="number" id="Dt">
+
+  <label>Wb (Berat Badan)</label>
+  <input type="number" id="Wb">
+
+  <label>avgT (Waktu Rata-rata)</label>
+  <input type="number" id="avgT">
+
+  <button onclick="hitung()">Hitung Intake</button>
+
+  <div class="result" id="hasil"></div>
+</div>
+
+<script>
+  function hitung() {
+    const C = parseFloat(document.getElementById('C').value) || 0;
+    const R = parseFloat(document.getElementById('R').value) || 0;
+    const tE = parseFloat(document.getElementById('tE').value) || 0;
+    const fE = parseFloat(document.getElementById('fE').value) || 0;
+    const Dt = parseFloat(document.getElementById('Dt').value) || 0;
+    const Wb = parseFloat(document.getElementById('Wb').value) || 0;
+    const avgT = parseFloat(document.getElementById('avgT').value) || 0;
+
+    if (Wb === 0 || avgT === 0) {
+      document.getElementById('hasil').innerText =
+        "Wb dan avgT tidak boleh nol";
+      return;
+    }
+
+    const intake = (C * R * tE * fE * Dt) / (Wb * avgT);
+
+    document.getElementById('hasil').innerText =
+      "Nilai Intake ADKL = " + intake.toExponential(4);
+  }
+</script>
+
+</body>
+</html>
