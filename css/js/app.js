@@ -1,39 +1,51 @@
-function hitung() {
+<script>
+function hitungRisiko() {
 
-    let C = +document.getElementById("C").value;
-    let R = +document.getElementById("R").value;
-    let tE = +document.getElementById("tE").value;
-    let fE = +document.getElementById("fE").value;
-    let Dt = +document.getElementById("Dt").value;
-    let Wb = +document.getElementById("Wb").value;
-    let RfD = +document.getElementById("RfD").value;
-    let jenis = document.getElementById("jenis").value;
+  const C  = parseFloat(document.getElementById("C").value);
+  const R  = parseFloat(document.getElementById("R").value);
+  const tE = parseFloat(document.getElementById("tE").value);
+  const fE = parseFloat(document.getElementById("fE").value);
+  const Dt = parseFloat(document.getElementById("Dt").value);
+  const Wb = parseFloat(document.getElementById("Wb").value);
 
-    if ([C,R,tE,fE,Dt,Wb,RfD].some(v => v <= 0)) {
-        alert("Semua input harus diisi dengan benar");
-        return;
+  const jenis = document.getElementById("jenisRisiko").value;
+
+  if ([C,R,tE,fE,Dt,Wb].some(v => isNaN(v) || v <= 0)) {
+    alert("Semua parameter pajanan wajib diisi dengan benar");
+    return;
+  }
+
+  // avgT otomatis (standar ADKL)
+  const avgT = (jenis === "non") ? Dt * 365 : 70 * 365;
+
+  const intake = (C * R * tE * fE * Dt) / (Wb * avgT);
+
+  const hasil = document.getElementById("hasil");
+  hasil.className = "result";
+
+  let output = `
+    <b>Intake ADKL:</b> ${intake.toExponential(3)} mg/kg/hari<br>
+  `;
+
+  if (jenis === "non") {
+    const RfD = parseFloat(document.getElementById("RfD").value);
+    if (isNaN(RfD) || RfD <= 0) {
+      alert("Masukkan nilai RfD yang valid");
+      return;
     }
 
-    let avgT = (jenis === "non") ? Dt * 365 : 70 * 365;
+    const HQ = intake / RfD;
 
-    let intake = (C * R * tE * fE * Dt) / (Wb * avgT);
-    let RQ = intake / RfD;
+    hasil.classList.add(HQ <= 1 ? "safe" : "risk");
 
-    let hasil = document.getElementById("hasil");
+    output += `
+      <b>Hazard Quotient (HQ):</b> ${HQ.toFixed(2)}<br>
+      <b>Status Risiko:</b> ${HQ <= 1 ? "AMAN" : "TIDAK AMAN"}
+    `;
+  } else {
+    output += `<i>Mode karsinogenik: gunakan Slope Factor (SF) & ECR</i>`;
+  }
 
-    if (RQ <= 1) {
-        hasil.className = "result safe";
-        hasil.innerHTML = `
-        Intake = ${intake.toExponential(3)} mg/kg/hari<br>
-        RQ = ${RQ.toFixed(2)}<br>
-        Status Risiko: AMAN
-        `;
-    } else {
-        hasil.className = "result risk";
-        hasil.innerHTML = `
-        Intake = ${intake.toExponential(3)} mg/kg/hari<br>
-        RQ = ${RQ.toFixed(2)}<br>
-        Status Risiko: TIDAK AMAN
-        `;
-    }
+  hasil.innerHTML = output;
 }
+</script>
