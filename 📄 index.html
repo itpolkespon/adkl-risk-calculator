@@ -21,93 +21,40 @@
 
   <!-- INPUT PAJANAN -->
   <label>Konsentrasi (C) – mg/L atau mg/kg</label>
-  <input type="number" id="C" step="any" placeholder="contoh: 0.05" required>
+  <input type="number" id="C" step="any" placeholder="contoh: 0.05">
 
   <label>Laju Asupan (R) – L/hari atau kg/hari</label>
-  <input type="number" id="R" step="any" placeholder="contoh: 2" required>
+  <input type="number" id="R" step="any" placeholder="contoh: 2">
 
   <label>Waktu Pajanan (tE) – jam/hari</label>
-  <input type="number" id="tE" step="any" placeholder="contoh: 8" required>
+  <input type="number" id="tE" step="any" placeholder="contoh: 8">
 
   <label>Frekuensi Pajanan (fE) – hari/tahun</label>
-  <input type="number" id="fE" step="any" placeholder="contoh: 350" required>
+  <input type="number" id="fE" step="any" placeholder="contoh: 350">
 
   <label>Durasi Pajanan (Dt) – tahun</label>
-  <input type="number" id="Dt" step="any" placeholder="contoh: 30" required>
+  <input type="number" id="Dt" step="any" placeholder="contoh: 30">
 
   <label>Berat Badan (Wb) – kg</label>
-  <input type="number" id="Wb" step="any" placeholder="contoh: 60" required>
+  <input type="number" id="Wb" step="any" placeholder="contoh: 60">
 
   <label>Waktu Rata-rata (avgT) – hari</label>
-  <input type="number" id="avgT" step="any" placeholder="contoh: 10950" required>
+  <input type="number" id="avgT" step="any" placeholder="contoh: 10950">
 
-  <!-- RfD (NON-KARSINOGENIK SAJA) -->
+  <!-- RfD -->
   <div id="rfdBox">
     <label>Reference Dose (RfD) – mg/kg/hari</label>
     <input type="number" id="RfD" step="any" placeholder="contoh: 0.0035">
   </div>
 
-  <!-- TOMBOL -->
   <button onclick="hitungRisiko()">Hitung Risiko</button>
 
   <!-- HASIL -->
-  <div class="result">
-    <p id="hasil">—</p>
-  </div>
+  <div id="hasil" class="result">—</div>
 
 </div>
 
-<!-- JAVASCRIPT -->
-<script>
-function toggleRfD() {
-  const jenis = document.getElementById("jenisRisiko").value;
-  document.getElementById("rfdBox").style.display =
-    jenis === "non" ? "block" : "none";
-}
-
-function hitungRisiko() {
-  const C = parseFloat(document.getElementById("C").value);
-  const R = parseFloat(document.getElementById("R").value);
-  const tE = parseFloat(document.getElementById("tE").value);
-  const fE = parseFloat(document.getElementById("fE").value);
-  const Dt = parseFloat(document.getElementById("Dt").value);
-  const Wb = parseFloat(document.getElementById("Wb").value);
-  const avgT = parseFloat(document.getElementById("avgT").value);
-
-  if ([C,R,tE,fE,Dt,Wb,avgT].some(isNaN) || Wb <= 0 || avgT <= 0) {
-    alert("Semua parameter pajanan wajib diisi dengan benar");
-    return;
-  }
-
-  // HITUNG INTAKE ADKL
-  const intake = (C * R * tE * fE * Dt) / (Wb * avgT);
-
-  let output =
-    `<b>Intake ADKL:</b> ${intake.toExponential(4)} mg/kg/hari<br>`;
-
-  const jenis = document.getElementById("jenisRisiko").value;
-
-  // NON-KARSINOGENIK → HQ
-  if (jenis === "non") {
-    const RfD = parseFloat(document.getElementById("RfD").value);
-    if (isNaN(RfD) || RfD <= 0) {
-      alert("Masukkan nilai RfD yang valid");
-      return;
-    }
-    const HQ = intake / RfD;
-    output += `<b>Hazard Quotient (HQ):</b> ${HQ.toFixed(2)} → 
-      <span style="color:${HQ <= 1 ? 'green' : 'red'}">
-      ${HQ <= 1 ? "Aman" : "Berisiko"}
-      </span>`;
-  } 
-  // KARSINOGENIK
-  else {
-    output += `<i>Mode karsinogenik dipilih (akan menggunakan SF & ECR)</i>`;
-  }
-
-  document.getElementById("hasil").innerHTML = output;
-}
-</script>
-
+<!-- LOAD JS EKSTERNAL -->
+<script src="js/script.js"></script>
 </body>
 </html>
