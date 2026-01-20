@@ -60,4 +60,11 @@ button:hover {
     background: #f8d7da;
     color: #721c24;
 }
+/* Tooltip info icon */
+.info {
+  cursor: help;
+  color: #007bff;
+  font-weight: bold;
+  margin-left: 6px;
+}
 
