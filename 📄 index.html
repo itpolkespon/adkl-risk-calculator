@@ -38,11 +38,52 @@
     <label>Reference Dose (RfD)</label>
     <input type="number" id="RfD" step="any">
 
+    <label>Jenis Risiko</label>
+<select id="jenisRisiko">
+  <option value="non">Non-Karsinogenik</option>
+  <option value="kar">Karsinogenik</option>
+</select>
+
+<label>RfD (mg/kg/hari)</label>
+<input type="number" id="rfd" step="any" placeholder="contoh: 0.003">
+
     <button onclick="hitung()">Hitung Risiko</button>
 
     <div class="result" id="hasil"></div>
 </div>
 
-<script src="app.js"></script>
+<script>
+function hitung() {
+  const C = parseFloat(document.getElementById('C').value) || 0;
+  const R = parseFloat(document.getElementById('R').value) || 0;
+  const tE = parseFloat(document.getElementById('tE').value) || 0;
+  const fE = parseFloat(document.getElementById('fE').value) || 0;
+  const Dt = parseFloat(document.getElementById('Dt').value) || 0;
+  const Wb = parseFloat(document.getElementById('Wb').value) || 0;
+  const avgT = parseFloat(document.getElementById('avgT').value) || 0;
+  const RfD = parseFloat(document.getElementById('RfD').value) || 0;
+
+  if (Wb === 0 || avgT === 0 || RfD === 0) {
+    document.getElementById('hasil').innerHTML =
+      "<b style='color:red'>Wb, avgT, dan RfD tidak boleh nol</b>";
+    return;
+  }
+
+  const intake = (C * R * tE * fE * Dt) / (Wb * avgT);
+  const RQ = intake / RfD;
+
+  document.getElementById('hasil').innerHTML = `
+    <p><b>Intake ADKL:</b> ${intake.toExponential(3)}</p>
+    <p><b>Risk Quotient (RQ):</b> ${RQ.toFixed(3)}</p>
+    <p><b>Interpretasi:</b> ${
+      RQ <= 1
+        ? "<span style='color:green'>Risiko dapat diterima</span>"
+        : "<span style='color:red'>Risiko tidak dapat diterima</span>"
+    }</p>
+  `;
+}
+</script>
 </body>
 </html>
+
+
