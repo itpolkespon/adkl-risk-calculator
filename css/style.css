@@ -27,6 +27,7 @@ label {
   font-weight: 600;
   margin-top: 10px;
   display: block;
+  position: relative; /* untuk tooltip */
 }
 
 input, select, button {
@@ -89,4 +90,10 @@ button:hover {
   white-space: nowrap;
   transform: translateY(-120%);
   z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+/* Responsive */
+@media (max-width: 520px) {
+  .container { padding: 15px; margin: 20px; }
 }
