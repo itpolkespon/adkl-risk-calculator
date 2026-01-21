@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Kalkulator Intake ADKL</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 <div class="container">
 
@@ -13,38 +12,41 @@
   <p class="subtitle">Analisis Risiko Kesehatan Lingkungan</p>
 
   <!-- JENIS RISIKO -->
-  <label>Jenis Risiko</label>
-  <select id="jenisRisiko" onchange="toggleRfD()">
+  <label for="jenisRisiko">Jenis Risiko</label>
+  <select id="jenisRisiko" onchange="toggleInputs()">
     <option value="non">Non-Karsinogenik</option>
     <option value="kar">Karsinogenik</option>
   </select>
 
   <!-- INPUT PAJANAN -->
-  <label>Konsentrasi (C) – mg/L atau mg/kg</label>
+  <label for="C">Konsentrasi (C) – mg/L atau mg/kg</label>
   <input type="number" id="C" step="any" placeholder="contoh: 0.05">
 
-  <label>Laju Asupan (R) – L/hari atau kg/hari</label>
+  <label for="R">Laju Asupan (R) – L/hari atau kg/hari</label>
   <input type="number" id="R" step="any" placeholder="contoh: 2">
 
-  <label>Waktu Pajanan (tE) – jam/hari</label>
+  <label for="tE">Waktu Pajanan (tE) – jam/hari</label>
   <input type="number" id="tE" step="any" placeholder="contoh: 8">
 
-  <label>Frekuensi Pajanan (fE) – hari/tahun</label>
+  <label for="fE">Frekuensi Pajanan (fE) – hari/tahun</label>
   <input type="number" id="fE" step="any" placeholder="contoh: 350">
 
-  <label>Durasi Pajanan (Dt) – tahun</label>
+  <label for="Dt">Durasi Pajanan (Dt) – tahun</label>
   <input type="number" id="Dt" step="any" placeholder="contoh: 30">
 
-  <label>Berat Badan (Wb) – kg</label>
+  <label for="Wb">Berat Badan (Wb) – kg</label>
   <input type="number" id="Wb" step="any" placeholder="contoh: 60">
 
-  <label>Waktu Rata-rata (avgT) – hari</label>
-  <input type="number" id="avgT" step="any" placeholder="contoh: 10950">
-
-  <!-- RfD -->
+  <!-- RfD untuk non-karsinogenik -->
   <div id="rfdBox">
-    <label>Reference Dose (RfD) – mg/kg/hari</label>
+    <label for="RfD">Reference Dose (RfD) – mg/kg/hari</label>
     <input type="number" id="RfD" step="any" placeholder="contoh: 0.0035">
+  </div>
+
+  <!-- SF untuk karsinogenik -->
+  <div id="sfBox">
+    <label for="SF">Slope Factor (SF) – per mg/kg/hari</label>
+    <input type="number" id="SF" step="any" placeholder="contoh: 0.0001">
   </div>
 
   <button onclick="hitungRisiko()">Hitung Risiko</button>
@@ -54,7 +56,6 @@
 
 </div>
 
-<!-- LOAD JS EKSTERNAL -->
-<script src="js/script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
