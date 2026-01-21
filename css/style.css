@@ -71,6 +71,10 @@ button:hover {
   color: #721c24;
 }
 
+#sfBox {
+  display: none; /* default hidden */
+}
+
 /* Tooltip info icon */
 .info {
   cursor: help;
